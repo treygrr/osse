@@ -4,25 +4,41 @@ const cheerio = require('cheerio');
 
 class Browser {
     constructor(username) {
-        const scrapeurl = `https://secure.runescape.com/m=hiscore_oldschool/hiscorepersonal?user1=${username}&submit=Search`
+        this.userName = username;
+        this.scrapeurl = `https://secure.runescape.com/m=hiscore_oldschool/hiscorepersonal?user1=${username}&submit=Search`
         // takes a single user as input and should be set here
     }
 
-    async start() {
-        const browser = await puppeteer.launch({headless: false});
+    async grabSingleUser() {
+        const args = [
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+            '--disable-infobars',
+            '--window-position=0,0',
+            '--ignore-certifcate-errors',
+            '--ignore-certifcate-errors-spki-list',
+            '--user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3312.0 Safari/537.36"'
+        ];
+    
+        const options = {
+            args,
+            headless: false,
+            ignoreHTTPSErrors: true,
+            userDataDir: './tmp'
+        };
+
+        const browser = await puppeteer.launch({options});
 
         const page = await browser.newPage();
 
-        await page.goto(scrapeurl, { waitUntil: 'networkidle2'});  
+        await page.goto(this.scrapeurl, { waitUntil: 'networkidle2'});  
        
         const pageBody =  await page.evaluate(()=> document.body.innerHTML);
 
         const $ = cheerio.load(pageBody);
 
-        const attack = $('#contentHiscores > table > tbody > tr:nth-child(5) > td:nth-child(2) > a');
-
         const userData = {
-            userName: {
+            [this.userName]: {
                 overall: {
                     rank: $('#contentHiscores > table > tbody > tr:nth-child(4) > td:nth-child(3)').text(),
                     level: $('#contentHiscores > table > tbody > tr:nth-child(4) > td:nth-child(4)').text(),
@@ -145,8 +161,9 @@ class Browser {
                 }
             }
         }
-
         console.log(userData);
+        await browser.close();
+        return userData;
         
     }
 
