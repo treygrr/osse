@@ -7,6 +7,13 @@
   pointer-events: none;
 }
 
+.list-item-names {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: center;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -34,5 +41,90 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes ldio-6zt3tgvfpyv {
+  0% { transform: translate(-50%,-50%) rotate(0deg); }
+  100% { transform: translate(-50%,-50%) rotate(360deg); }
+}
+.ldio-6zt3tgvfpyv div {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 5px solid #6b6b6b;
+  border-top-color: transparent;
+  border-radius: 50%;
+}
+.ldio-6zt3tgvfpyv div {
+  animation: ldio-6zt3tgvfpyv 1s linear infinite;
+  top: 10px;
+  left: 10px
+}
+.loadingio-spinner-rolling-zlhkp6cwop {
+  width: 25px;
+  height: 25px;
+  margin-left: 15px;
+  display: inline-block;
+  overflow: hidden;
+  background:transparent;
+}
+.ldio-6zt3tgvfpyv {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(1);
+  backface-visibility: hidden;
+  transform-origin: 0 0;
+}
+.ldio-6zt3tgvfpyv div { box-sizing: content-box; }
+
+
+.checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke: #7ac142;
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmark {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  margin-left: 15px;
+  display: block;
+  stroke-width: 2;
+  stroke: #fff;
+  stroke-miterlimit: 10;
+  box-shadow: inset 0px 0px 0px #7ac142;
+  animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+}
+
+.checkmark__check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes scale {
+  0%, 100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 0px 0px 30px #7ac142;
   }
 }
