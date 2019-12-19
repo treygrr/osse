@@ -50,16 +50,16 @@
 }
 .ldio-6zt3tgvfpyv div {
   position: absolute;
-  width: 10px;
-  height: 10px;
-  border: 5px solid #6b6b6b;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #6b6b6b;
   border-top-color: transparent;
   border-radius: 50%;
 }
 .ldio-6zt3tgvfpyv div {
   animation: ldio-6zt3tgvfpyv 1s linear infinite;
-  top: 10px;
-  left: 10px
+  top: 12px;
+  left: 12px
 }
 .loadingio-spinner-rolling-zlhkp6cwop {
   width: 25px;
@@ -79,52 +79,69 @@
 }
 .ldio-6zt3tgvfpyv div { box-sizing: content-box; }
 
-
-.checkmark__circle {
-  stroke-dasharray: 166;
-  stroke-dashoffset: 166;
-  stroke-width: 2;
-  stroke-miterlimit: 10;
-  stroke: #7ac142;
-  fill: none;
-  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
-}
-
-.checkmark {
+svg {
   width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  margin-left: 15px;
   display: block;
-  stroke-width: 2;
-  stroke: #fff;
-  stroke-miterlimit: 10;
-  box-shadow: inset 0px 0px 0px #7ac142;
-  animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+  margin-left: 15px;
 }
-
-.checkmark__check {
-  transform-origin: 50% 50%;
-  stroke-dasharray: 48;
-  stroke-dashoffset: 48;
-  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+.path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 0;
 }
-
-@keyframes stroke {
+.path.circle {
+  -webkit-animation: dash 0.9s ease-in-out;
+  animation: dash 0.9s ease-in-out;
+}
+.path.line {
+  stroke-dashoffset: 1000;
+  -webkit-animation: dash 0.9s 0.35s ease-in-out forwards;
+  animation: dash 0.9s 0.35s ease-in-out forwards;
+}
+.path.check {
+  stroke-dashoffset: -100;
+  -webkit-animation: dash-check 0.9s 0.35s ease-in-out forwards;
+  animation: dash-check 0.9s 0.35s ease-in-out forwards;
+}
+p {
+  text-align: center;
+  margin: 20px 0 60px;
+  font-size: 1.25em;
+}
+p.success {
+  color: #73AF55;
+}
+p.error {
+  color: #D06079;
+}
+@-webkit-keyframes dash {
+  0% {
+    stroke-dashoffset: 1000;
+  }
   100% {
     stroke-dashoffset: 0;
   }
 }
-@keyframes scale {
-  0%, 100% {
-    transform: none;
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 1000;
   }
-  50% {
-    transform: scale3d(1.1, 1.1, 1);
+  100% {
+    stroke-dashoffset: 0;
   }
 }
-@keyframes fill {
+@-webkit-keyframes dash-check {
+  0% {
+    stroke-dashoffset: -100;
+  }
   100% {
-    box-shadow: inset 0px 0px 0px 30px #7ac142;
+    stroke-dashoffset: 900;
+  }
+}
+@keyframes dash-check {
+  0% {
+    stroke-dashoffset: -100;
+  }
+  100% {
+    stroke-dashoffset: 900;
   }
 }
