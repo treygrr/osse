@@ -147,7 +147,9 @@ class Browser {
 
         const page = await browser.newPage();
 
-        await page.goto(this.scrapeurl, { waitUntil: 'networkidle2'});  
+        await page.goto(this.scrapeurl, { waitUntil: 'networkidle2'}).catch((error) => {
+            console.log(error);
+        });  
        
         const pageBody =  await page.evaluate(()=> document.body.innerHTML);
 
@@ -165,7 +167,9 @@ class Browser {
             let string = $(element).find('td:nth-child(2) > a').text().trim().toLowerCase();
             switch(string) {
                 case 'overall':
-                    console.log('we found overall');
+                    userData[this.userName].overall.rank = parseInt($(element).find('td:nth-child(3)').text().replace(/,/g, ''));
+                    userData[this.userName].overall.level = parseInt($(element).find('td:nth-child(4)').text().replace(/,/g, ''));
+                    userData[this.userName].overall.xp = parseInt($(element).find('td:nth-child(5)').text().replace(/,/g, ''));
                   break;
                 case 'attack':
                     userData[this.userName].attack.rank = parseInt($(element).find('td:nth-child(3)').text().replace(/,/g, ''));
@@ -289,11 +293,8 @@ class Browser {
 
         });
         console.log(userData);
-        await browser.close().then(()=>{
-            return userData;
-        });
-        
-        
+        await browser.close();
+        return userData;        
     }
 
 }
