@@ -16,7 +16,12 @@ const start = () => {
         const scraper = new Browser(username);
         let dataUser = scraper.grabSingleUser();
         
+
         dataUser.then(response => {
+            if (response === false) {
+                res.status(500).send('Error grabbing user data');
+                return;
+            }
            res.send(response) 
         })
     });
