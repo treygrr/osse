@@ -1,5 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
+import { Link} from 'react-router-dom';
 
 class CreateForm extends React.Component {
     constructor(props) {
@@ -124,7 +125,7 @@ class CreateForm extends React.Component {
             <input type="text" value={this.state.addMember} onChange={this.handleUserNameChange}/>
             <input type="submit" value="Add" />
             </form>
-            
+            <Link to="/create">Go to Page Two!</Link>
         </section>
       );
     }
