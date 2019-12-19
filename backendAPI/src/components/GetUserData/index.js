@@ -46,7 +46,7 @@ class Browser {
                     level: 0,
                     xp: 0
                 },
-                Magic: {
+                magic: {
                     rank: 0,
                     level: 0,
                     xp: 0
@@ -142,15 +142,8 @@ class Browser {
             '--ignore-certifcate-errors-spki-list',
             '--user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3312.0 Safari/537.36"'
         ];
-    
-        const options = {
-            args,
-            headless: true,
-            ignoreHTTPSErrors: true,
-            userDataDir: './tmp'
-        };
 
-        const browser = await puppeteer.launch({options});
+        const browser = await puppeteer.launch({headless: false, args: args});
 
         const page = await browser.newPage();
 
@@ -159,99 +152,150 @@ class Browser {
         const pageBody =  await page.evaluate(()=> document.body.innerHTML);
 
         const $ = cheerio.load(pageBody);
+        let userExist = $('#contentHiscores > div > b').text();
+        if (userExist !== '') {
+            await browser.close().then(()=>{
+                return userData;
+            });
+            console.log('empty user data found woops returning 500 lol')
+            return false;
+        }
         const tableSelection = $('#contentHiscores > table > tbody > tr');
-        $(tableSelection).each(function(index, element) {
+        $(tableSelection).each((index, element) => {
             let string = $(element).find('td:nth-child(2) > a').text().trim().toLowerCase();
             switch(string) {
                 case 'overall':
                     console.log('we found overall');
                   break;
                 case 'attack':
-                    userData[this.userName].rank = parseInt($(element).find('td:nth-child(3) > a').text());
-                    userData[this.userName].level = 1337;
-                    userData[this.userName].xp = 1337;
+                    userData[this.userName].attack.rank = parseInt($(element).find('td:nth-child(3)').text().replace(/,/g, ''));
+                    userData[this.userName].attack.level = parseInt($(element).find('td:nth-child(4)').text().replace(/,/g, ''));
+                    userData[this.userName].attack.xp = parseInt($(element).find('td:nth-child(5)').text().replace(/,/g, ''));
                 break;
                 case 'defence':
-                    console.log('we found defence');
+                    userData[this.userName].defense.rank = parseInt($(element).find('td:nth-child(3)').text().replace(/,/g, ''));
+                    userData[this.userName].defense.level = parseInt($(element).find('td:nth-child(4)').text().replace(/,/g, ''));
+                    userData[this.userName].defense.xp = parseInt($(element).find('td:nth-child(5)').text().replace(/,/g, ''));
                 break;
                 case 'strength':
-                    console.log('we found strength');
+                    userData[this.userName].strength.rank = parseInt($(element).find('td:nth-child(3)').text().replace(/,/g, ''));
+                    userData[this.userName].strength.level = parseInt($(element).find('td:nth-child(4)').text().replace(/,/g, ''));
+                    userData[this.userName].strength.xp = parseInt($(element).find('td:nth-child(5)').text().replace(/,/g, ''));
                 break;
                 case 'hitpoints':
-                    console.log('we found hitpoints');
+                    userData[this.userName].hitpoints.rank = parseInt($(element).find('td:nth-child(3)').text().replace(/,/g, ''));
+                    userData[this.userName].hitpoints.level = parseInt($(element).find('td:nth-child(4)').text().replace(/,/g, ''));
+                    userData[this.userName].hitpoints.xp = parseInt($(element).find('td:nth-child(5)').text().replace(/,/g, ''));
                 break;
                 case 'ranged':
-                    console.log('we found ranged');
+                    userData[this.userName].ranged.rank = parseInt($(element).find('td:nth-child(3)').text().replace(/,/g, ''));
+                    userData[this.userName].ranged.level = parseInt($(element).find('td:nth-child(4)').text().replace(/,/g, ''));
+                    userData[this.userName].ranged.xp = parseInt($(element).find('td:nth-child(5)').text().replace(/,/g, ''));
                 break;
                 case 'prayer':
-                    console.log('we found prayer');
+                    userData[this.userName].prayer.rank = parseInt($(element).find('td:nth-child(3)').text().replace(/,/g, ''));
+                    userData[this.userName].prayer.level = parseInt($(element).find('td:nth-child(4)').text().replace(/,/g, ''));
+                    userData[this.userName].prayer.xp = parseInt($(element).find('td:nth-child(5)').text().replace(/,/g, ''));
                 break;
                 case 'magic':
-                    console.log('we found magic');
+                    userData[this.userName].magic.rank = parseInt($(element).find('td:nth-child(3)').text().replace(/,/g, ''));
+                    userData[this.userName].magic.level = parseInt($(element).find('td:nth-child(4)').text().replace(/,/g, ''));
+                    userData[this.userName].magic.xp = parseInt($(element).find('td:nth-child(5)').text().replace(/,/g, ''));
                 break;
                 case 'cooking':
-                    console.log('we found cooking');
+                    userData[this.userName].cooking.rank = parseInt($(element).find('td:nth-child(3)').text().replace(/,/g, ''));
+                    userData[this.userName].cooking.level = parseInt($(element).find('td:nth-child(4)').text().replace(/,/g, ''));
+                    userData[this.userName].cooking.xp = parseInt($(element).find('td:nth-child(5)').text().replace(/,/g, ''));
                 break;
                 case 'woodcutting':
-                    console.log('we found woodcutting');
+                    userData[this.userName].woodcutting.rank = parseInt($(element).find('td:nth-child(3)').text().replace(/,/g, ''));
+                    userData[this.userName].woodcutting.level = parseInt($(element).find('td:nth-child(4)').text().replace(/,/g, ''));
+                    userData[this.userName].woodcutting.xp = parseInt($(element).find('td:nth-child(5)').text().replace(/,/g, ''));
                 break;
                 case 'fletching':
-                    console.log('we found fletching');
+                    userData[this.userName].fletching.rank = parseInt($(element).find('td:nth-child(3)').text().replace(/,/g, ''));
+                    userData[this.userName].fletching.level = parseInt($(element).find('td:nth-child(4)').text().replace(/,/g, ''));
+                    userData[this.userName].fletching.xp = parseInt($(element).find('td:nth-child(5)').text().replace(/,/g, ''));
                 break;
                 case 'fishing':
-                    console.log('we found fishing');
+                    userData[this.userName].fishing.rank = parseInt($(element).find('td:nth-child(3)').text().replace(/,/g, ''));
+                    userData[this.userName].fishing.level = parseInt($(element).find('td:nth-child(4)').text().replace(/,/g, ''));
+                    userData[this.userName].fishing.xp = parseInt($(element).find('td:nth-child(5)').text().replace(/,/g, ''));
                 break;
                 case 'firemaking':
-                    console.log('we found firemaking');
+                    userData[this.userName].firemaking.rank = parseInt($(element).find('td:nth-child(3)').text().replace(/,/g, ''));
+                    userData[this.userName].firemaking.level = parseInt($(element).find('td:nth-child(4)').text().replace(/,/g, ''));
+                    userData[this.userName].firemaking.xp = parseInt($(element).find('td:nth-child(5)').text().replace(/,/g, ''));
                 break;
                 case 'crafting':
-                    console.log('we found crafting');
+                    userData[this.userName].crafting.rank = parseInt($(element).find('td:nth-child(3)').text().replace(/,/g, ''));
+                    userData[this.userName].crafting.level = parseInt($(element).find('td:nth-child(4)').text().replace(/,/g, ''));
+                    userData[this.userName].crafting.xp = parseInt($(element).find('td:nth-child(5)').text().replace(/,/g, ''));
                 break;
                 case 'smithing':
-                    console.log('we found smithing');
+                    userData[this.userName].smithing.rank = parseInt($(element).find('td:nth-child(3)').text().replace(/,/g, ''));
+                    userData[this.userName].smithing.level = parseInt($(element).find('td:nth-child(4)').text().replace(/,/g, ''));
+                    userData[this.userName].smithing.xp = parseInt($(element).find('td:nth-child(5)').text().replace(/,/g, ''));
                 break;
                 case 'mining':
-                    console.log('we found mining');
+                    userData[this.userName].mining.rank = parseInt($(element).find('td:nth-child(3)').text().replace(/,/g, ''));
+                    userData[this.userName].mining.level = parseInt($(element).find('td:nth-child(4)').text().replace(/,/g, ''));
+                    userData[this.userName].mining.xp = parseInt($(element).find('td:nth-child(5)').text().replace(/,/g, ''));
                 break;
                 case 'herblore':
-                    console.log('we found herblore');
+                    userData[this.userName].herblore.rank = parseInt($(element).find('td:nth-child(3)').text().replace(/,/g, ''));
+                    userData[this.userName].herblore.level = parseInt($(element).find('td:nth-child(4)').text().replace(/,/g, ''));
+                    userData[this.userName].herblore.xp = parseInt($(element).find('td:nth-child(5)').text().replace(/,/g, ''));
                 break;
                 case 'agility':
-                    console.log('we found agility');
+                    userData[this.userName].agility.rank = parseInt($(element).find('td:nth-child(3)').text().replace(/,/g, ''));
+                    userData[this.userName].agility.level = parseInt($(element).find('td:nth-child(4)').text().replace(/,/g, ''));
+                    userData[this.userName].agility.xp = parseInt($(element).find('td:nth-child(5)').text().replace(/,/g, ''));
                 break;
                 case 'thieving':
-                    console.log('we found thieving');
+                    userData[this.userName].thieving.rank = parseInt($(element).find('td:nth-child(3)').text().replace(/,/g, ''));
+                    userData[this.userName].thieving.level = parseInt($(element).find('td:nth-child(4)').text().replace(/,/g, ''));
+                    userData[this.userName].thieving.xp = parseInt($(element).find('td:nth-child(5)').text().replace(/,/g, ''));
                 break;    
                 case 'slayer':
-                    console.log('we found slayer');
+                    userData[this.userName].slayer.rank = parseInt($(element).find('td:nth-child(3)').text().replace(/,/g, ''));
+                    userData[this.userName].slayer.level = parseInt($(element).find('td:nth-child(4)').text().replace(/,/g, ''));
+                    userData[this.userName].slayer.xp = parseInt($(element).find('td:nth-child(5)').text().replace(/,/g, ''));
                 break;
                 case 'farming':
-                    console.log('we found farming');
+                    userData[this.userName].farming.rank = parseInt($(element).find('td:nth-child(3)').text().replace(/,/g, ''));
+                    userData[this.userName].farming.level = parseInt($(element).find('td:nth-child(4)').text().replace(/,/g, ''));
+                    userData[this.userName].farming.xp = parseInt($(element).find('td:nth-child(5)').text().replace(/,/g, ''));
                 break;
                 case 'runecraft':
-                    console.log('we found runecraft');
+                    userData[this.userName].runecraft.rank = parseInt($(element).find('td:nth-child(3)').text().replace(/,/g, ''));
+                    userData[this.userName].runecraft.level = parseInt($(element).find('td:nth-child(4)').text().replace(/,/g, ''));
+                    userData[this.userName].runecraft.xp = parseInt($(element).find('td:nth-child(5)').text().replace(/,/g, ''));
                 break;
                 case 'hunter':
-                    console.log('we found hunter');
+                    userData[this.userName].hunter.rank = parseInt($(element).find('td:nth-child(3)').text().replace(/,/g, ''));
+                    userData[this.userName].hunter.level = parseInt($(element).find('td:nth-child(4)').text().replace(/,/g, ''));
+                    userData[this.userName].hunter.xp = parseInt($(element).find('td:nth-child(5)').text().replace(/,/g, ''));
                 break;
                 case 'construction':
-                    console.log('we found construction');
+                    userData[this.userName].construction.rank = parseInt($(element).find('td:nth-child(3)').text().replace(/,/g, ''));
+                    userData[this.userName].construction.level = parseInt($(element).find('td:nth-child(4)').text().replace(/,/g, ''));
+                    userData[this.userName].construction.xp = parseInt($(element).find('td:nth-child(5)').text().replace(/,/g, ''));
                 break;
 
                 default:
-                  return;
+                  
               }
 
         });
-        
-
-        
         console.log(userData);
-        await browser.close();
-        return userData;
+        await browser.close().then(()=>{
+            return userData;
+        });
+        
         
     }
 
 }
 
-module.exports = { Browser }
+module.exports = { Browser } 
