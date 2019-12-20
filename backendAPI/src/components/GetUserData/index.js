@@ -143,7 +143,7 @@ class Browser {
             '--user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3312.0 Safari/537.36"'
         ];
 
-        const browser = await puppeteer.launch({headless: false, args: args});
+        const browser = await puppeteer.launch({headless: true, args: args});
 
         const page = await browser.newPage();
 
