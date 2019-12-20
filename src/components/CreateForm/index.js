@@ -39,7 +39,7 @@ class CreateForm extends React.Component {
         this.setState({addMember: ''});
     }
 
-    sendToServer(memberName) {
+    async sendToServer(memberName) {
         const userlist = this.state.names;
         const url = 'http://localhost:3001/skillevent/create';
         for (let i = 0; userlist.length > i; i++){
@@ -50,33 +50,33 @@ class CreateForm extends React.Component {
           getLoading[i].userData.loading = true;
           getLoading[i].userData.loaded = false;
           getLoading[i].userData.failed = false;
-          this.setState({
+          await this.setState({
             names: getLoading
           });
-          Axios.get(url, {
+          await Axios.get(url, {
             params: {
               username: userlist[i].userData.name
             }
           })
-          .then((response) => {
+          .then(async(response) => {
             if (response.status === 200){
               getLoading = this.state.names;
               getLoading[i].userData.loading = false;
               getLoading[i].userData.loaded = true;
               getLoading[i].userData.failed = false;
-              this.setState({
+              await this.setState({
                 names: getLoading
               });
               console.log(response);
             }
           })
-          .catch((error) => {
+          .catch(async(error) => {
             if (error.status !== 200){
               getLoading = this.state.names;
               getLoading[i].userData.failed = true;
               getLoading[i].userData.loading = false;
               getLoading[i].userData.loaded = false;
-              this.setState({
+              await this.setState({
                 names: getLoading
               });
               return;
