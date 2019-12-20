@@ -44,6 +44,8 @@ class CreateForm extends React.Component {
         const url = 'http://localhost:3001/skillevent/create';
         for (let i = 0; userlist.length > i; i++){
           let getLoading = this.state.names;
+          let check = getLoading[i];
+          if (typeof check === "undefined") continue;
           if (getLoading[i].userData.loaded === true || getLoading[i].userData.loading === true) {
             continue;
           }
@@ -73,6 +75,7 @@ class CreateForm extends React.Component {
           .catch(async(error) => {
             if (error.status !== 200){
               getLoading = this.state.names;
+              if (getLoading[i] === undefined) return
               getLoading[i].userData.failed = true;
               getLoading[i].userData.loading = false;
               getLoading[i].userData.loaded = false;
@@ -89,8 +92,7 @@ class CreateForm extends React.Component {
 
     removeName(indexVal) {
       let newList = this.state.names;
-      let arrayLen = this.state.names.length;
-      newList.splice(indexVal, 1);
+      delete newList[indexVal];
 
       this.setState({
         names: newList
@@ -135,9 +137,12 @@ class CreateForm extends React.Component {
             <input className="form-button" type="submit" value="add" />
             </form>
             {this.showNamesList()}
-            {this.state.names[0] ? <button className="a-button" onClick={this.sendToServer}>recheck names</button>: null}
+            <div className="ButtonsWrapper">
+              {this.state.names[0] ? <button className="a-button" onClick={this.sendToServer}>recheck names</button>: null}
+              {this.state.names[0] ? <Link className="a-button" to="/create">create clan event</Link>: null}
+            </div>
             </article>
-            {this.state.names[0] ? <Link className="a-button" to="/create">create clan event</Link>: null}
+            
         </section>
       );
     }
