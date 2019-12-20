@@ -128,7 +128,7 @@ class CreateForm extends React.Component {
       return (
         <section className="form-info-wrapper">
             <article>
-            <p>start typing to add users to the fetch list</p>
+            <p>start typing to grab user data</p>
             <form className="form-add-user" onSubmit={this.handleSubmit}>
             <label className="username-label">
                 username: 
