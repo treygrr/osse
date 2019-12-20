@@ -151,7 +151,10 @@ class Browser {
             console.log(error);
         });  
        
-        const pageBody =  await page.evaluate(()=> document.body.innerHTML);
+        const pageBody =  await page.evaluate(()=> document.body.innerHTML).catch((error)=>{
+            res.status(500).send('Error grabbing user data');
+        }
+        );
 
         const $ = cheerio.load(pageBody);
         let userExist = $('#contentHiscores > div > b').text();
