@@ -91,7 +91,7 @@ class CreateForm extends React.Component {
       const listItem = this.state.names;
       if (!Array.isArray(listItem) || !listItem.length) return;
       return (
-        <ul>
+        <ul className="listview">
           {listItem.map((data, index) => 
           <li className="list-item-names"key={index}>{this.state.names[index].userData.name}
             {this.state.names[index].userData.loading ? <div className="loadingio-spinner-rolling-zlhkp6cwop"><div className="ldio-6zt3tgvfpyv"><div></div></div></div>: null}
@@ -113,19 +113,19 @@ class CreateForm extends React.Component {
     render() {
       return (
         <section className="form-info-wrapper">
-            <button onClick={this.sendToServer}>Fetch Data</button>
             <article>
-            <p>added users</p>
-            {this.showNamesList()}
-            </article>
-            <form onSubmit={this.handleSubmit}>
-            <label>
+            <p>start typing to add users to the fetch list</p>
+            <form className="form-add-user" onSubmit={this.handleSubmit}>
+            <label className="username-label">
                 username: 
             </label>
-            <input type="text" value={this.state.addMember} onChange={this.handleUserNameChange}/>
-            <input type="submit" value="Add" />
+            <input className="form-textfield" type="text" value={this.state.addMember} onChange={this.handleUserNameChange}/>
+            <input className="form-button" type="submit" value="add" />
             </form>
-            <Link to="/create">Go to Page Two!</Link>
+            {this.showNamesList()}
+            {this.state.names[0] ? <button className="a-button" onClick={this.sendToServer}>check names</button>: null}
+            </article>
+            {this.state.names[0] ? <Link className="a-button" to="/create">create clan event</Link>: null}
         </section>
       );
     }
