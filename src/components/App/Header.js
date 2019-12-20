@@ -12,7 +12,7 @@ class Header extends React.Component {
                     <img src={lantern} className="App-logo-lantern" alt="lantern" />
                 </div>
                 
-                <div>OSRS Skilling Events</div>
+                <p>OSRS:SE</p>
                 <a href="https://github.com/treygrr/osse"><img src={github} className="App-logo-github" alt="github" /></a>
             </div>
         );
