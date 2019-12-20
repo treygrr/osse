@@ -38,7 +38,7 @@
   flex-direction: row;
   justify-content: flex-start;
   border: 1px solid rgb(255, 179, 37);
-  border-radius: 5px;
+  border-radius: 10px;
   box-sizing: border-box;
   margin: 0;
   padding: 5px;
@@ -63,7 +63,7 @@
   flex-wrap: nowrap;
   max-width: 1000px;
   background-color: white;
-  border-radius: 100px;
+  border-radius: 10px;
   background-image: linear-gradient(to right, rgba(255, 142, 76, 1) , rgba(255, 179, 39, 0.8));
   box-sizing: border-box;
   height: 34px;
@@ -95,7 +95,7 @@
   width: 70%;
   margin: 0px;
   color: #282c34;
-  border-radius: 100px;
+  border-radius: 10px;
   border: 1px solid rgb(255, 179, 37);
   box-sizing: border-box;
 }
@@ -147,7 +147,7 @@
   padding: 5px;
   margin: 5px;
   border: 1px solid gray;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
