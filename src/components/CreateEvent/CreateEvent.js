@@ -8,7 +8,7 @@ class CreateForm extends React.Component {
     }
   
     list() {
-      console.log(this.state.names);
+      console.log(this.props.names);
     }
   
     render() {
