@@ -1,6 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class CreateForm extends React.Component {
     constructor(props) {
@@ -9,7 +9,7 @@ class CreateForm extends React.Component {
             names: [],
             addMember: ''
         };
-
+        console.log(this.props);
         this.handleUserNameChange = this.handleUserNameChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.sendToServer = this.sendToServer.bind(this);
@@ -100,7 +100,6 @@ class CreateForm extends React.Component {
 
     }
 
-
     showNamesList() {
       const listItem = this.state.names;
       if (!Array.isArray(listItem) || !listItem.length) return;
@@ -121,9 +120,9 @@ class CreateForm extends React.Component {
           </li>)
           }
         </ul>
-      );
-      
+      );  
     }
+
     render() {
       return (
         <section className="form-info-wrapper">
@@ -139,7 +138,7 @@ class CreateForm extends React.Component {
             {this.showNamesList()}
             <div className="ButtonsWrapper">
               {this.state.names[0] ? <button className="a-button" onClick={this.sendToServer}>recheck names</button>: null}
-              {this.state.names[0] ? <Link className="a-button" to="/create">create clan event</Link>: null}
+              {this.state.names[0] ? <Link onClick={()=>this.props.data(this.state.names)} className="a-button" to="/create">create clan event</Link>: null}
             </div>
             </article>
             
