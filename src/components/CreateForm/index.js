@@ -8,8 +8,8 @@ class CreateForm extends React.Component {
         this.state = { 
             names: [],
             addMember: '',
-            waitingForApi: false,
-            expData: {}
+            expData: {},
+            waitingForAPI: true
         };
         console.log(this.props);
         this.handleUserNameChange = this.handleUserNameChange.bind(this);
@@ -31,7 +31,6 @@ class CreateForm extends React.Component {
             loading: false,
             loaded: false,
             failed: false,
-            waitingForApi: false,
             expData: {}
           }
         }
@@ -57,7 +56,8 @@ class CreateForm extends React.Component {
           getLoading[i].userData.loaded = false;
           getLoading[i].userData.failed = false;
           await this.setState({
-            names: getLoading
+            names: getLoading,
+            waitingForAPI: true
           });
           await Axios.get(url, {
             params: {
@@ -72,9 +72,10 @@ class CreateForm extends React.Component {
               getLoading[i].userData.failed = false;
               getLoading[i].userData.expData = response.data;
               await this.setState({
-                names: getLoading
+                names: getLoading,
+                waitingForAPI: false
               });
-              console.log(getLoading[i].userData.expData);
+              // console.log(getLoading[i].userData.expData);
             }
           })
           .catch(async(error) => {
@@ -85,7 +86,8 @@ class CreateForm extends React.Component {
               getLoading[i].userData.loading = false;
               getLoading[i].userData.loaded = false;
               await this.setState({
-                names: getLoading
+                names: getLoading,
+                waitingForAPI: true
               });
               return;
             }
@@ -142,6 +144,33 @@ class CreateForm extends React.Component {
       );  
     }
 
+    checkForAllLoaded() {
+      const listItem = this.state.names;
+      let trigger = true;
+
+      if (!Array.isArray(listItem) || !listItem.length) return;
+   
+      listItem.map((data, index) => {
+        data.userData.loaded? trigger = true: trigger = false;
+        data.userData.loading? trigger = false: trigger = true;
+      });
+
+      return trigger;
+    }
+
+    checkForFailed() {
+      const listItem = this.state.names;
+      let trigger = true;
+
+      if (!Array.isArray(listItem) || !listItem.length) return;
+   
+      listItem.map((data, index) => {
+        data.userData.failed? trigger = true: trigger = false;
+      });
+
+      return trigger;
+    }
+
     render() {
       return (
         <section className="form-info-wrapper">
@@ -157,13 +186,18 @@ class CreateForm extends React.Component {
             {this.showNamesList()}
             <div className="ButtonsWrapper">
               {this.state.names[0] ? <button className="a-button" onClick={this.sendToServer}>recheck names</button>: null}
-              {this.state.names[0] ? <Link onClick={
+              {!this.state.waitingForAPI ? <Link onClick={
                 ()=>{
                   this.props.data.appStateUpdate(this.state.names)
                   this.setStoredData()
                 }
                 } className="a-button" to="/create">create clan event</Link>: null}
+                
+                
             </div>
+            {this.state.names[0]? <section><p>{this.checkForAllLoaded()? '':'loading'}</p>
+            <p>{this.checkForFailed()? 'failed username check(s). try rechecking': null }</p></section>
+             : null }
             </article>
             
         </section>
