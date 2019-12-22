@@ -7,7 +7,9 @@ class CreateForm extends React.Component {
         super(props);
         this.state = { 
             names: [],
-            addMember: ''
+            addMember: '',
+            waitingForApi: false,
+            expData: {}
         };
         console.log(this.props);
         this.handleUserNameChange = this.handleUserNameChange.bind(this);
@@ -28,7 +30,9 @@ class CreateForm extends React.Component {
             name: this.state.addMember,
             loading: false,
             loaded: false,
-            failed: false
+            failed: false,
+            waitingForApi: false,
+            expData: {}
           }
         }
         let joined = this.state.names.concat(userinfo)
@@ -66,10 +70,11 @@ class CreateForm extends React.Component {
               getLoading[i].userData.loading = false;
               getLoading[i].userData.loaded = true;
               getLoading[i].userData.failed = false;
+              getLoading[i].userData.expData = response.data;
               await this.setState({
                 names: getLoading
               });
-              console.log(response);
+              console.log(getLoading[i].userData.expData);
             }
           })
           .catch(async(error) => {
@@ -98,6 +103,20 @@ class CreateForm extends React.Component {
         names: newList
       });
 
+    }
+
+    setStoredData() {
+      let listingData = {
+        listingData: this.state.names
+      }
+
+      let listing = {
+        listing: listingData
+      }
+      if (localStorage.getItem('listicles')) {
+        console.log('old data exits')
+      }      
+      localStorage.setItem('listicles', JSON.stringify(listing));
     }
 
     showNamesList() {
@@ -138,7 +157,12 @@ class CreateForm extends React.Component {
             {this.showNamesList()}
             <div className="ButtonsWrapper">
               {this.state.names[0] ? <button className="a-button" onClick={this.sendToServer}>recheck names</button>: null}
-              {this.state.names[0] ? <Link onClick={()=>this.props.data(this.state.names)} className="a-button" to="/create">create clan event</Link>: null}
+              {this.state.names[0] ? <Link onClick={
+                ()=>{
+                  this.props.data.appStateUpdate(this.state.names)
+                  this.setStoredData()
+                }
+                } className="a-button" to="/create">create clan event</Link>: null}
             </div>
             </article>
             
