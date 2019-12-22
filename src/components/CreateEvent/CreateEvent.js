@@ -14,7 +14,6 @@ class CreateForm extends React.Component {
     render() {
       return (
         <section className="create-info-wrapper">
-          {this.list}
             <Link to="/">Go Home</Link>
         </section>
       );

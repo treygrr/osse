@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Link} from 'react-router-dom';
 
 import CreateForm from '../CreateForm';
 import CreateEvent from '../CreateEvent/CreateEvent';
+import EventList from '../CreateEvent/EventList';
 import Header from './Header';
 
 class App extends React.Component {
@@ -12,7 +13,7 @@ class App extends React.Component {
     super();
     this.state = { 
       names: [],
-      addMember: 'tea'
+      addMember: 'Typer Username'
     };
   }
 
@@ -21,15 +22,16 @@ class App extends React.Component {
       names: data
     });
   }
-
   render(){
     return (
       <div className="App">
         <BrowserRouter>
         <Header />
+        <EventList></EventList>
           <div className="App-body">
-            <Route path="/" exact render={(props) => <CreateForm data={this.appStateUpdate.bind(this)}/>}/>
+            
             <Route path="/create" component={CreateEvent} />
+            <Route path="/" exact render={(props) => <CreateForm data={{appStateUpdate:this.appStateUpdate.bind(this), names: this.state.names, addMember: this.state.addMember}}/>}/>
           </div>
         </BrowserRouter>
       </div>

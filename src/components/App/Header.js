@@ -2,6 +2,7 @@ import React from 'react';
 import logo from '../App/logo.svg';
 import lantern from '../App/lantern.svg'
 import github from '../App/github.svg'
+
 class Header extends React.Component {
 
     render() {
