@@ -21,6 +21,10 @@ body {
   top: -30px;
 }
 
+.status-message {
+  font-size: 2vmin;
+}
+
 .App-logo-lantern {
   height: 115px;
   transform-origin: 50% 25px;

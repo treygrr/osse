@@ -49,7 +49,7 @@ class CreateForm extends React.Component {
           let getLoading = this.state.names;
           let check = getLoading[i];
           if (typeof check === "undefined") continue;
-          if (getLoading[i].userData.loaded === true || getLoading[i].userData.loading === true) {
+          if (getLoading[i].userData.loaded === true || getLoading[i].userData.loading === true || getLoading[i].userData.failed === true) {
             continue;
           }
           getLoading[i].userData.loading = true;
@@ -87,7 +87,7 @@ class CreateForm extends React.Component {
               getLoading[i].userData.loaded = false;
               await this.setState({
                 names: getLoading,
-                waitingForAPI: true
+                waitingForAPI: false
               });
               return;
             }
@@ -153,6 +153,7 @@ class CreateForm extends React.Component {
       listItem.map((data, index) => {
         data.userData.loaded? trigger = true: trigger = false;
         data.userData.loading? trigger = false: trigger = true;
+        
       });
 
       return trigger;
@@ -160,15 +161,25 @@ class CreateForm extends React.Component {
 
     checkForFailed() {
       const listItem = this.state.names;
-      let trigger = true;
-
+      let foundFailure = false;
       if (!Array.isArray(listItem) || !listItem.length) return;
-   
-      listItem.map((data, index) => {
-        data.userData.failed? trigger = true: trigger = false;
-      });
+      
+      for (let i = 0; listItem.length > i; i++){
+        console.log(i);
+        let item = listItem[i];
+        if (item === undefined) break;
+        if (listItem[i].userData.failed === true){
+          return true;
+        }
+      }
+      return foundFailure;      
+    }
 
-      return trigger;
+    canCreate() {
+      if (this.state.names[0] && this.checkForAllLoaded() && !this.checkForFailed()){
+        return true
+      }
+      return false;
     }
 
     render() {
@@ -185,8 +196,8 @@ class CreateForm extends React.Component {
             </form>
             {this.showNamesList()}
             <div className="ButtonsWrapper">
-              {this.state.names[0] ? <button className="a-button" onClick={this.sendToServer}>recheck names</button>: null}
-              {!this.state.waitingForAPI ? <Link onClick={
+              {this.state.names.length ? <button className="a-button" onClick={this.sendToServer}>recheck names</button>: null}
+              {this.canCreate() ? <Link onClick={
                 ()=>{
                   this.props.data.appStateUpdate(this.state.names)
                   this.setStoredData()
@@ -195,8 +206,9 @@ class CreateForm extends React.Component {
                 
                 
             </div>
-            {this.state.names[0]? <section><p>{this.checkForAllLoaded()? '':'loading'}</p>
-            <p>{this.checkForFailed()? 'failed username check(s). try rechecking': null }</p></section>
+            {this.state.names.length? <section>
+              <p>{this.checkForAllLoaded()? '':'fletchin data'}</p>
+              <p className="status-message">{this.checkForFailed()? 'failed username check(s). try rechecking if you think this is in error; otherwise remove failed usernames.' : null }</p></section>
              : null }
             </article>
             
