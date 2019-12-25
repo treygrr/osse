@@ -175,14 +175,11 @@ class CreateForm extends React.Component {
     }
 
     canCreate() {
-      console.log(this.state.names.length);
-      console.log(this.checkForAllLoaded())
-      console.log(this.checkForFailed())
       if (this.state.names.length && this.checkForAllLoaded() && !this.checkForFailed()) {
         return true
       }
       return false;
-    }
+      }
 
     render() {
       return (
@@ -198,7 +195,6 @@ class CreateForm extends React.Component {
             </form>
             {this.showNamesList()}
             <div className="ButtonsWrapper">
-              {this.state.names.length ? <button className="a-button" onClick={this.sendToServer}>recheck names</button>: null}
               {this.canCreate() ? <Link onClick={
                 ()=>{
                   this.props.data.appStateUpdate(this.state.names)
