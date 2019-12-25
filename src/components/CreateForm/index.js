@@ -165,9 +165,8 @@ class CreateForm extends React.Component {
       if (!Array.isArray(listItem) || !listItem.length) return;
       
       for (let i = 0; listItem.length > i; i++){
-        console.log(i);
         let item = listItem[i];
-        if (item === undefined) break;
+        if (item === undefined || item === null) continue;
         if (listItem[i].userData.failed === true){
           return true;
         }
@@ -176,7 +175,10 @@ class CreateForm extends React.Component {
     }
 
     canCreate() {
-      if (this.state.names[0] && this.checkForAllLoaded() && !this.checkForFailed()){
+      console.log(this.state.names.length);
+      console.log(this.checkForAllLoaded())
+      console.log(this.checkForFailed())
+      if (this.state.names.length && this.checkForAllLoaded() && !this.checkForFailed()) {
         return true
       }
       return false;
@@ -206,9 +208,13 @@ class CreateForm extends React.Component {
                 
                 
             </div>
-            {this.state.names.length? <section>
+            {this.state.names.length? 
+            <section>
               <p>{this.checkForAllLoaded()? '':'fletchin data'}</p>
-              <p className="status-message">{this.checkForFailed()? 'failed username check(s). try rechecking if you think this is in error; otherwise remove failed usernames.' : null }</p></section>
+              <p className="status-message">
+                {this.checkForFailed()? 'failed username check(s). try rechecking if you think this is in error; otherwise remove failed usernames.' : null }
+              </p>
+              </section>
              : null }
             </article>
             
