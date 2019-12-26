@@ -22,7 +22,7 @@ class EventList extends React.Component {
 
     showCreatedEvents() {
         if (this.state.storageData === undefined || this.state.storageData === null) return;
-        console.log(this.state.storageData);
+        // console.log(this.state.storageData);
 
         return (
             <div className="card createdWrapper">
