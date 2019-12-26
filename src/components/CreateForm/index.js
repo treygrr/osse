@@ -11,7 +11,6 @@ class CreateForm extends React.Component {
             expData: {},
             waitingForAPI: true
         };
-        console.log(this.props);
         this.handleUserNameChange = this.handleUserNameChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.sendToServer = this.sendToServer.bind(this);
