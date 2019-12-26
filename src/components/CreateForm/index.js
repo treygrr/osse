@@ -107,17 +107,20 @@ class CreateForm extends React.Component {
     }
 
     setStoredData() {
-      let listingData = {
-        listingData: this.state.names
+      const object = {
+        event: []
       }
+      let eventContainer = {
+        eventName: this.state.names
+      }
+      
+      // object.event.concat(JSON.parse(localStorage.getItem('listicles')));
 
-      let listing = {
-        listing: listingData
-      }
-      if (localStorage.getItem('listicles')) {
-        console.log('old data exits')
-      }      
-      localStorage.setItem('listicles', JSON.stringify(listing));
+      object.event.concat(eventContainer);
+
+
+      console.log(object)
+      localStorage.setItem('listicles', JSON.stringify(object));
     }
 
     showNamesList() {
