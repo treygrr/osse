@@ -107,20 +107,23 @@ class CreateForm extends React.Component {
     }
 
     setStoredData() {
-      const object = {
-        event: []
+      let oldData = JSON.parse(localStorage.getItem('listicles'));
+
+      console.log(oldData);
+      if (oldData)
+      if (Array.isArray(oldData.eventName)){
+        console.log('found array')
+        console.log(oldData.eventName);
+        oldData.eventName.push(this.state.names);
+        localStorage.setItem('listicles', JSON.stringify(oldData));
+        return;
       }
       let eventContainer = {
-        eventName: this.state.names
+        eventName: [this.state.names]
       }
-      
-      // object.event.concat(JSON.parse(localStorage.getItem('listicles')));
-
-      object.event.concat(eventContainer);
-
-
-      console.log(object)
-      localStorage.setItem('listicles', JSON.stringify(object));
+      console.log('did not find array');
+      localStorage.setItem('listicles', JSON.stringify(eventContainer));
+     
     }
 
     showNamesList() {
