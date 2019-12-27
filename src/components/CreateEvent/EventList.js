@@ -1,34 +1,68 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../CreateEvent/EventList.css';
 class EventList extends React.Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             storageData: [],
+            selection: this.props.selectionName,
+            refreshed: false
         } 
+        this.getDataStart();
+    }
+
+    setSelection(sel){
+        this.setState({
+            selection: sel
+        })
+        this.props.data.updateSelection(sel)
+    }
+
+    async getDataStart() {
+        let newData = await JSON.parse(localStorage.getItem('listicles'));
+        this.setState({
+            storageData: newData
+        });
     }
 
     async getData() {
+        let newData = await JSON.parse(localStorage.getItem('listicles'));
         let oldData = this.state.storageData;
-        let newData = JSON.parse(localStorage.getItem('listicles'));
-        await this.setState({
-            storageData: newData
-        })
+        if (JSON.stringify(newData) === JSON.stringify(oldData)) {
+        } else {
+            this.setState({
+                storageData: newData,
+                selection: this.props.selectionName
+            });
+        }
+
     }
 
-    componentDidMount() {
-        this.getData();        
+    renderButtons(){
+        this.getData();
+        if (this.state.storageData === null)return;
+        return(
+            <ul>
+            {this.state.storageData.map((data, index) =>
+                <Link to="/view" replace>
+                    <li key={index} className={data.eventName === this.state.selection? 'selected': ''}
+                        onClick={()=>
+                            this.setSelection(data.eventName)
+                        }
+                    >
+                    {data.eventName}
+                    </li>
+                </Link>
+            )}
+        </ul>
+        );
     }
 
-    showCreatedEvents() {
-        if (this.state.storageData === undefined || this.state.storageData === null) return;
-        // console.log(this.state.storageData);
-
+    showCreatedEvents() {        
         return (
             <div className="card createdWrapper">
-                <ul>
-                
-                </ul>
+                {this.renderButtons()}
             </div>
         )
     }
