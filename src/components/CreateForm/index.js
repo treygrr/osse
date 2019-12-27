@@ -9,7 +9,8 @@ class CreateForm extends React.Component {
             names: [],
             addMember: '',
             expData: {},
-            waitingForAPI: true
+            waitingForAPI: true,
+            newTitle: null,
         };
         this.handleUserNameChange = this.handleUserNameChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -106,23 +107,32 @@ class CreateForm extends React.Component {
 
     }
 
-    setStoredData() {
+    async setStoredData() {
       let oldData = JSON.parse(localStorage.getItem('listicles'));
-
+      let response = prompt("name the event");
+      if (!response)return;
+      this.props.data.updateSelection(response)
       console.log(oldData);
-      if (oldData)
-      if (Array.isArray(oldData.eventName)){
+      if (oldData);
+      if (Array.isArray(oldData)){
         console.log('found array')
-        console.log(oldData.eventName);
-        oldData.eventName.push(this.state.names);
+        console.log(oldData);
+        let eventContainer = {
+          data: [this.state.names],
+          eventName: response
+        }
+        oldData.push(eventContainer);
         localStorage.setItem('listicles', JSON.stringify(oldData));
         return;
       }
       let eventContainer = {
-        eventName: [this.state.names]
+        data: [this.state.names], 
+        eventName: response
       }
+      let arrayHolder = [];
+      arrayHolder.push(eventContainer);
       console.log('did not find array');
-      localStorage.setItem('listicles', JSON.stringify(eventContainer));
+      localStorage.setItem('listicles', JSON.stringify(arrayHolder));
      
     }
 
@@ -138,11 +148,11 @@ class CreateForm extends React.Component {
   <circle className="path circle" fill="none" stroke="#73AF55" strokeWidth="6" strokeMiterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
   <polyline className="path check" fill="none" stroke="#73AF55" strokeWidth="6" strokeLinecap="round" strokeMiterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
 </svg> : null}
-            {this.state.names[index].userData.failed ? <a onClick={()=>this.removeName(index)}><svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+            {this.state.names[index].userData.failed ? <div onClick={()=>this.removeName(index)}><svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
   <circle className="path circle" fill="none" stroke="#D06079" strokeWidth="6" strokeMiterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
   <line className="path line" fill="none" stroke="#D06079" strokeWidth="6" strokeLinecap="round" strokeMiterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
   <line className="path line" fill="none" stroke="#D06079" strokeWidth="6" strokeLinecap="round" strokeMiterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
-</svg></a> : null}
+</svg></div> : null}
           </li>)
           }
         </ul>
@@ -155,10 +165,9 @@ class CreateForm extends React.Component {
 
       if (!Array.isArray(listItem) || !listItem.length) return;
    
-      listItem.map((data, index) => {
+      listItem.map((data) => {
         data.userData.loaded? trigger = true: trigger = false;
         data.userData.loading? trigger = false: trigger = true;
-        
       });
 
       return trigger;
@@ -181,10 +190,10 @@ class CreateForm extends React.Component {
 
     canCreate() {
       if (this.state.names.length && this.checkForAllLoaded() && !this.checkForFailed()) {
-        return true
+        return true;
       }
       return false;
-      }
+    }
 
     render() {
       return (
@@ -205,7 +214,7 @@ class CreateForm extends React.Component {
                   this.props.data.appStateUpdate(this.state.names)
                   this.setStoredData()
                 }
-                } className="a-button" to="/create">create clan event</Link>: null}
+                } className="a-button" to="/view">create clan event</Link>: null }
                 
                 
             </div>
