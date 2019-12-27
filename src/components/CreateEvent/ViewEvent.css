@@ -1,0 +1,171 @@
+.viewEventWrapper {
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100vw;
+}
+.viewEventWrapper * {
+    font-size: calc(2px + 2vmin);
+}
+a, a:visited {
+    color: white;
+    text-decoration: none;
+}
+
+ a:hover {
+    color: orange;
+}
+
+.showOptions {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    justify-content: center;
+}
+
+.showOptions > a, .showOptions > img {
+    margin-top: 20px;
+}
+
+.cardsWrapper {
+    height: fit-content;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+}
+.cardOuterWrapper {
+    margin: 10px;
+    border: 1px solid #ff9100;
+    border-radius: 10px;
+    background-color: #464b56;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.cardTitle {
+    padding-bottom: 10px;
+    text-align: left;
+    padding-left: 5px;
+}
+
+.cardInnerWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.currentColumn {
+    background-color: rgb(79, 120, 160);
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.currentColumnTitle {
+    width: 100%;
+}
+
+.currentRankTitle {
+    width: 25%;
+}
+
+.currentColumnSkill {
+    width: 25%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.currentColumnRank {
+    width: 25%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.currentColumnLevel {
+    width: 25%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.currentColumnExperience {
+    width: 25%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.startColumn {
+    background-color: lightslategray;
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.startColumnTitle {
+    width: 100%;
+}
+
+.startColumnSkill {
+    width: 25%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.startColumnRank {
+    width: 25%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.startColumnLevel {
+    width: 25%;
+}
+
+.startColumnExperience {
+    width: 25%;
+}
+
+.diffColumn {
+    width: 20%;
+}
+
+.startingSkillList {
+    width: 100%;
+    border-top: 1px solid white;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.currentSkillList {
+    width: 100%;
+    border-top: 1px solid white;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.skillWrapper {
+    width: 100%;
+    display: flex;
+    align-content: left;
+}
+
+.skillWrapper * {
+    font-size: 1.5vmin;
+} 
+
+.skillHolder {
+    width: 25%;
+}
