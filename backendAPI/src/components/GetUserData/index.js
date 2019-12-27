@@ -148,6 +148,7 @@ class Browser {
 
         await page.goto(this.scrapeurl, { waitUntil: 'networkidle2'}).catch((error) => {
             console.log(error);
+            res.status(500).send('Error grabbing user data');
         });  
        
         const pageBody =  await page.evaluate(()=> document.body.innerHTML).catch((error)=>{
