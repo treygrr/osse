@@ -1,0 +1,53 @@
+                <div className="cardTitle">username: {data.name}</div>
+                <div className="cardInnerWrapper">
+                    <div className="startColumn">
+                        <div className="startColumnTitle">starting stats</div>
+                        <div className="startColumnSkill">
+                            <div className="startColumnTitle">skill</div>
+                        </div>
+                        <div className="startColumnRank">
+                            <div className="startColumnTitle">rank</div>
+                        </div>
+                        <div className="startColumnLevel">
+                            <div className="startColumnTitle">level</div>
+                        </div>
+                        <div className="startColumnExperience">
+                            <div className="startColumnTitle">exp</div>
+                        </div>
+                        <div className="startingSkillList">
+                           
+                
+<div key={data} className="skillWrapper">
+    <div className="skillHolder">{data}</div>
+    <div className="skillHolder">{skills[data].rank}</div>
+    <div className="skillHolder">{skills[data].level}</div>
+    <div className="skillHolder">{skills[data].xp}</div>
+</div>
+
+                        </div>
+                    </div>
+                    <div className="currentColumn">
+                        <div className="currentColumnTitle">current stats</div>
+                        <div className="currentColumnSkill">
+                            <div className="currentColumnTitle">skill</div>
+                        </div>
+                        <div className="currentColumnRank">
+                            <div className="currentColumnTitle">rank</div>
+                        </div>
+                        <div className="currentColumnLevel">
+                            <div className="currentColumnTitle">level</div>
+                        </div>
+                        <div className="currentColumnExperience">
+                            <div className="currentColumnTitle">exp</div>
+                        </div>
+                        <div className="currentSkillList">
+<div key={data} className="skillWrapper">
+    <div className="skillHolder">{data}</div>
+    <div className="skillHolder">{skills[data].rank}</div>
+    <div className="skillHolder">{skills[data].level}</div>
+    <div className="skillHolder">{skills[data].xp}</div>
+</div>
+                        </div>
+                    </div>
+                    <div className="diffColumn">diff</div>
+                </div>
