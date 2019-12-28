@@ -5,8 +5,6 @@
     align-items: center;
     justify-content: space-around;
     background-image: linear-gradient(to right, rgba(255, 142, 76, 1) , rgba(255, 179, 39, 1));
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
 }
 
 .createdWrapper > ul {
@@ -22,23 +20,46 @@
 }
 
 .createdWrapper > ul > a > li{
-    margin: 10px;
+    margin: 11px;
     padding: 25px;
     box-sizing: border-box;
-    border: 1px solid #dbdbdb;
+    border: 1px solid #282828;
     border-radius: 10px;
-    background-color: #282828;
+    background-color: #464b56;
     box-shadow: 0 4px 8px 0 rgb(0, 0, 0);
-    color: white;
+    color: white;    
 }
 
 .createdWrapper > ul > a > .selected{
+    position: relative;
     margin: 10px;
     padding: 25px;
     box-sizing: border-box;
-    border: 2px solid #dbdbdb;
+    border: 2px solid #282828;
     border-radius: 10px;
-    background-color: #282828;
+    background-color: #464b56;
     box-shadow: 0 4px 8px 0 rgb(0, 0, 0);
     color: white;
+    animation: jump .2s ease-in-out;
 }
+
+
+@keyframes jump {
+    0% {
+    top  : 0px;
+    }
+    50% {
+      top: -10px;
+    }
+    65% {
+      top: 0px;
+    }
+    80% {
+        top: -5px;
+      }
+    100% {
+        top: 0px;
+      }
+  }
+  
+  
