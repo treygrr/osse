@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../CreateEvent/EventList.css';
+
 class EventList extends React.Component {
     constructor(props){
         super(props);

@@ -38,12 +38,13 @@ a, a:visited {
 }
 .cardOuterWrapper {
     margin: 10px;
-    border: 1px solid #ff9100;
+    border: 1px solid rgb(255, 142, 76);
     border-radius: 10px;
     background-color: #464b56;
     width: 100%;
     box-sizing: border-box;
     padding: 10px;
+    box-shadow: 0 4px 8px 0 rgb(0, 0, 0);
 }
 
 .cardTitle {
@@ -59,11 +60,34 @@ a, a:visited {
 }
 
 .currentColumn {
-    background-color: rgb(79, 120, 160);
+    position: relative;
+    margin-right: 5px;
+    padding: 5px;
+    box-sizing: border-box;
+    background-color: rgb(187, 146, 69);
     width: 40%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+}
+
+.loadingWrapper{
+    position: absolute;
+    padding: 5px;
+    top: 0;
+    left: 0;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.7);
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.currentColumn, .startColumn, .diffColumn {
+    border-radius: 5px;
+    border: 1px solid #282828;
 }
 
 .currentColumnTitle {
@@ -86,6 +110,7 @@ a, a:visited {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    
 }
 
 .currentColumnLevel {
@@ -103,11 +128,14 @@ a, a:visited {
 }
 
 .startColumn {
-    background-color: lightslategray;
+    padding: 5px;
+    box-sizing: border-box;
+    background-color: rgb(187, 161, 112);
     width: 40%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    margin-right: 5px;
 }
 
 .startColumnTitle {
@@ -137,7 +165,13 @@ a, a:visited {
 }
 
 .diffColumn {
+    padding: 5px;
+    box-sizing: border-box;
+    background-color: rgb(189, 129, 17);
     width: 20%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .startingSkillList {
