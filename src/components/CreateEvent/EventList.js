@@ -45,6 +45,13 @@ class EventList extends React.Component {
         if (this.state.storageData === null)return;
         return(
             <ul>
+            <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet"/>
+            <a className="bmc-button" target="_blank" href="https://www.buymeacoffee.com/ylWKM4A">
+              <img src={'https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg'} alt={'Say thanks with a coffee'}/>
+                <span style={{marginLeft:'15px'},{fontSize:'28px !important'}}>
+                  Say thanks with a coffee
+                </span>
+            </a>
             {this.state.storageData.map((data, index) =>
                 <Link to="/view" replace>
                     <li key={index} className={data.eventName === this.state.selection? 'selected': ''}

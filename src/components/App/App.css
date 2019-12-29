@@ -391,3 +391,32 @@ p.error {
     stroke-dashoffset: 900;
   }
 }
+
+.bmc-button img{
+  height: calc(2vmin + 20px);
+  margin-bottom: 1px;
+  box-shadow: none;
+  border: none;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.bmc-button {
+  margin: 10px;
+  box-sizing: border-box;
+  padding: 15px;
+  padding-right: 25px;
+  padding-left: 25px;
+  border: 1px solid #282828;
+  border-radius: 10px;
+  line-height: calc(2vmin + 20px);
+  background-color: #464b56;
+  box-shadow: 0 4px 8px 0 rgb(0, 0, 0);
+  color: white;
+  text-decoration: none;
+  display:inline-flex;
+  color:#ffffff ;
+  font-size: 2vmin;
+  box-shadow: 0 4px 8px 0 rgb(0, 0, 0);
+  box-sizing: border-box;
+}

@@ -7,7 +7,7 @@ const port = 3001;
 app.use(cors());
 
 const start = () => {
-    app.get('/skillevent/create', (req, res) => {
+    app.get('/skillevent/create', cors(), (req, res) => {
         console.log('Request Recieved starting Scrape');
     
         const username = req.query.username;
@@ -25,7 +25,6 @@ const start = () => {
            res.send(response) 
         })
     });
-    
     app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 }; 
 

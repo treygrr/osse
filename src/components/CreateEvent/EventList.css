@@ -16,6 +16,8 @@
     align-items: center;
     justify-content: space-around;
     z-index: 50;
+    margin-left: 0;
+    padding-left: 0;
     list-style: none;
 }
 
@@ -27,7 +29,8 @@
     border-radius: 10px;
     background-color: #464b56;
     box-shadow: 0 4px 8px 0 rgb(0, 0, 0);
-    color: white;    
+    color: white;
+    font-size: 2vmin;
 }
 
 .createdWrapper > ul > a > .selected{
