@@ -235,12 +235,35 @@ class View extends React.Component {
         );
     }
 
-    renderDifference(eventName, data, ai, bi) {       
+    getDifferenceData(){
+        console.log('gettting difference data')
+    }
 
+    renderDifference(eventName, data, ai, bi) {       
+        if (!this.state.current[0])return;
+        let curr = this.state.current[0][ai].data[0][bi].userData.expData.dataPoints
+        let old = this.state.list[0][ai].data[0][bi].userData.expData.dataPoints
+        let loaded = this.state.current[0][ai].data[0][bi].userData.loaded;
+        if (loaded){
+            this.getDifferenceData(ai, bi);
+        }
         return (
             <div className="diffColumn">
-            <div className="currentColumnTitle">
-                current stats
+                {loaded?null:
+                    <div className="loadingWrapper">
+                    <div>
+                        waiting on stats
+                    </div>
+                    <div className="loadingio-spinner-rolling-zlhkp6cwop">
+                        <div className="ldio-6zt3tgvfpyv">
+                            <div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                }
+            {loaded? <><div className="currentColumnTitle">
+                 stats diff
             </div>
             <div className="currentColumnSkill">
                 <div className="currentColumnTitle">skill</div>
@@ -255,38 +278,18 @@ class View extends React.Component {
                 <div className="currentColumnTitle">exp</div>
             </div>
             <div className="currentSkillList">
-
+           {Object.keys(curr).map((data, index)=>
+                    <div key={data} className="skillWrapper">
+                        <div className="skillHolder">{data}</div>
+                        <div className="skillHolder">{curr[data].rank - old[data].rank}</div>
+                        <div className="skillHolder">{curr[data].level - old[data].level}</div>
+                        <div className="skillHolder">{curr[data].xp - old[data].xp}</div>
+                    </div>
+            )}
             </div>
+            </>: null}
         </div>
         );
-    }
-
-    getUpdatedUserData = async (eventName, datas, ai, bi) => {  
-
-        let api = new getCurrent();
-
-        let currentOld = JSON.stringify(this.state.current);
-        let currents = JSON.parse(currentOld);
-        let missile = currents[0][ai].data[0][bi];
-        
-        let childUpdate = currents[0][ai].data[0];
-
-        let currentUserData = datas[bi];
-        console.log(currentUserData)
-        await api.getUserData(currentUserData.userData.name).then(async(res)=> {
-
-            console.log(currentUserData.userData)
-            if (res.status === 200) {
-                missile.userData.failed = false;
-                missile.userData.loaded = true;
-                missile.userData.requested = true;
-            }else {
-                missile.failed = false;
-                missile.loaded = false;
-                missile.requested = true;
-            }
-        });
-        return await currents
     }
 
     render() {
