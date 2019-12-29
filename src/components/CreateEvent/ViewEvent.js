@@ -132,7 +132,6 @@ class View extends React.Component {
                     return(
                         userDataOld.map((data, index) => 
                             <div key={index} className="cardOuterWrapper">
-                                {this.updateCurrentDataSet(eventName, userDataOld, i, index)}
                                 <div className="cardTitle">username: {data.userData.name}</div>
                                 <div className="cardInnerWrapper">
                                     {this.renderStartingStats(eventName, userDataOld, i, index)}
@@ -183,20 +182,7 @@ class View extends React.Component {
         
     }
 
-    updateCurrentDataSet(eventName, data, ai, bi) {
-        if (!this.state.current[0])return;
-        let missile = this.state.current[0][ai].data[0][bi].userData.expData.dataPoints
-        let loaded = this.state.current[0][ai].data[0][bi].userData.loaded;
-        let requested = this.state.current[0][ai].data[0][bi].userData.requested;
 
-        if (loaded === false && requested === false){
-            this.getUpdatedUserData(eventName, data, ai, bi).then(async(returnState) =>
-                await this.setState({
-                    current: returnState
-                })
-            );
-        }
-    }
 
     renderCurrentStats(eventName, data, ai, bi){
         if (!this.state.current[0])return;
