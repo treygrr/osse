@@ -1,7 +1,7 @@
 import Axios from 'axios';
 class Current {
     constructor(){
-        this.url = 'http://osseapi.lavidadev.com/skillevent/create';
+        this.url = 'https://osseapi.lavidadev.com/skillevent/create';
         this.axios = new Axios.create();
     }
 
