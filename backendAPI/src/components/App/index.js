@@ -19,7 +19,7 @@ const start = () => {
 
         dataUser.then(response => {
             if (response === false) {
-                res.status(500).send('Error grabbing user data');
+                res.status(404).send('Error grabbing user data');
                 return;
             }
            res.send(response) 
