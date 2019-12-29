@@ -8,35 +8,87 @@ class View extends React.Component {
     constructor(props) {
       super(props)
       this.state = {
-          list: [],
-          current: []
+          list: this.getData(),
+          current: [],
+          selection: this.props.selectionName
       }
-      this.getData();
+
     }
 
     componentDidMount() {
-        this.setCurrent();
+        this.setCurrent().then(async ()=>{
+
+            let data = await this.updateCurrentDataSet(this.state.selection);
+            await this.setState({
+                current: data
+            });
+
+        });
     }
 
-    async getData(){
+    async componentWillReceiveProps(newProps) {
+        const oldProps = this.props
+        if(oldProps.selection !== newProps.selectionName){
+            await this.setState({selection: newProps.selectionName});
+            this.updateCurrentDataSet(this.state.selection);
+        }
+    }
+
+    componentDidUpdate() {
+        
+    }
+
+
+    getData(){
         let data = JSON.parse(localStorage.getItem('listicles'));
-        let news = this.state.list.push(data);
-        await this.setState({
-            list: news
-        });
+        let arrayNew = [];
+        arrayNew.push(data);
+        return arrayNew;
+    }
+
+    async updateCurrentDataSet (selection) {
+        let newest = this.state.current;
+        let currents = newest;
+        if (currents[0].length){
+            for (let a = 0; currents[0].length > a; a++) {
+                if (currents[0][a].eventName === selection){
+                    let data = currents[0][a].data[0];
+                    for (let b = 0; data.length > b; b++){
+                        if (data[b].userData.requested === false && data[b].userData.failed === false) {
+                            let api = new getCurrent();
+                            data[b].userData.requested = true;
+                            api.getUserData(data[b].userData.name).then(async(res)=> {
+                                if (res.status === 200) {
+                                    data[b].userData.failed = false;
+                                    data[b].userData.loaded = true;
+                                    data[b].userData.expData.dataPoints = res.data.dataPoints;
+                                    this.setState({
+                                        current: currents
+                                    });
+                                }else {
+                                    data[b].failed = true;
+                                    data[b].loaded = false;
+                                    this.setState({
+                                        current: currents
+                                    });
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+        }
+        return currents;
     }
 
     async setCurrent() {
         let old = JSON.stringify(this.state.list);
         let newest = JSON.parse(old);
-        await this.setState({
-            current: JSON.parse(old)
-        });
 
-        let current = this.state.current[0];
-        if (current.length){
-            for (let a = 0; current.length > a; a++) {
-                let data = current[a].data[0];
+        let currents = newest;
+        if (currents[0].length){
+            for (let a = 0; currents[0].length > a; a++) {
+                let data = currents[0][a].data[0];
                 for (let b = 0; data.length > b; b++){
                     if (data[b].userData.loaded === true) {
                         data[b].userData.loaded = false;
