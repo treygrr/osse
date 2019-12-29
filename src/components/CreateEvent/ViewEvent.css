@@ -165,13 +165,16 @@ a, a:visited {
 }
 
 .diffColumn {
+    position: relative;
+    margin-right: 5px;
     padding: 5px;
     box-sizing: border-box;
-    background-color: rgb(189, 129, 17);
-    width: 20%;
+    width: 40%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    background-color: rgb(189, 129, 17);
+
 }
 
 .startingSkillList {
