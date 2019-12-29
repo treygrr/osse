@@ -44,7 +44,7 @@ class CreateForm extends React.Component {
 
     async sendToServer(memberName) {
         const userlist = this.state.names;
-        const url = 'http://localhost:3001/skillevent/create';
+        const url = 'http://osseapi.lavidadev.com/skillevent/create';
         for (let i = 0; userlist.length > i; i++){
           let getLoading = this.state.names;
           let check = getLoading[i];
