@@ -98,7 +98,10 @@ class View extends React.Component {
                 }
             }
         }
-    }
+        await this.setState({
+            current: currents
+        });
+    }   
 
     showCard() {
         if (this.props.selectionName === null) {
@@ -112,6 +115,7 @@ class View extends React.Component {
             return (
                 <div className="cardsWrapper">
                     {this.renderAllStatsCard(this.props.selectionName)}
+                    
                 </div>
             );
         }
