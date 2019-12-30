@@ -49,12 +49,12 @@ class View extends React.Component {
     async updateCurrentDataSet (selection) {
         let newest = this.state.current;
         let currents = newest;
-        if (currents[0].length){
+        if (currents[0].length && currents[0] !== undefined){
             for (let a = 0; currents[0].length > a; a++) {
                 if (currents[0][a].eventName === selection){
                     let data = currents[0][a].data[0];
                     for (let b = 0; data.length > b; b++){
-                        if (data[b].userData.requested === false && data[b].userData.failed === false) {
+                        if (data[b]!== null && data[b].userData.requested === false && data[b].userData.failed === false) {
                             let api = new getCurrent();
                             data[b].userData.requested = true;
                             api.getUserData(data[b].userData.name).then(async(res)=> {
@@ -90,7 +90,7 @@ class View extends React.Component {
             for (let a = 0; currents[0].length > a; a++) {
                 let data = currents[0][a].data[0];
                 for (let b = 0; data.length > b; b++){
-                    if (data[b].userData.loaded === true) {
+                    if (data[b] !== null && data[b].userData.loaded === true) {
                         data[b].userData.loaded = false;
                         data[b].userData.expData.dataPoints = {};
                         data[b].userData.requested = false;
@@ -129,14 +129,23 @@ class View extends React.Component {
                     let eventName = lister[i].eventName
                     let datas = lister[i].data;
                     let userDataOld = datas[0];
+
+                    let userDataNew = [];
+
+                    for (let b = 0; userDataOld.length > b; b++){
+                        if (userDataOld[b] !== null) {
+                            userDataNew.push(userDataOld[b]);
+                        }
+                    }
+
                     return(
-                        userDataOld.map((data, index) => 
+                        userDataNew.map((data, index) => 
                             <div key={index} className="cardOuterWrapper">
                                 <div className="cardTitle">username: {data.userData.name}</div>
                                 <div className="cardInnerWrapper">
-                                    {this.renderStartingStats(eventName, userDataOld, i, index)}
-                                    {this.renderCurrentStats(eventName, userDataOld, i, index)}
-                                    {this.renderDifference(eventName, userDataOld, i, index)}
+                                    {this.renderStartingStats(eventName, userDataNew, i, index)}
+                                    {this.renderCurrentStats(eventName, userDataNew, i, index)}
+                                    {this.renderDifference(eventName, userDataNew, i, index)}
                                 </div>
                             </div>
                         )
