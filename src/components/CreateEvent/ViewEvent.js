@@ -40,9 +40,16 @@ class View extends React.Component {
 
 
     getData(){
-        let data = JSON.parse(localStorage.getItem('listicles'));
+        let imported = JSON.parse(localStorage.getItem('listicles'));
         let arrayNew = [];
-        arrayNew.push(data);
+        arrayNew.push(imported);
+        for (let a = 0; arrayNew[0].length > a; a++) {
+            for (let b = 0; arrayNew[0][a].data[0].length > b; b++) {
+                if (arrayNew[0][a].data[0][b] === null) {
+                    arrayNew[0][a].data[0].splice(b, 1);
+                }
+            }
+        }
         return arrayNew;
     }
 
