@@ -69,6 +69,7 @@ a, a:visited {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    align-content: flex-start;
 }
 
 .loadingWrapper{
