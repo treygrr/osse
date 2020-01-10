@@ -146,7 +146,7 @@ class Browser {
 
         const page = await browser.newPage();
 
-        await page.goto(this.scrapeurl, { waitUntil: 'networkidle2'}).catch((error) => {
+        await page.goto(this.scrapeurl, { waitUntil: 'load', timeout: 5000 }).catch((error) => {
             console.log(error);
             return false;
         });  
