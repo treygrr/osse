@@ -147,11 +147,11 @@ class Browser {
         const page = await browser.newPage();
 
         await page.goto(this.scrapeurl, { waitUntil: 'load', timeout: 5000 }).catch((error) => {
-            console.log(error);
             return false;
         });  
        
         const pageBody =  await page.evaluate(()=> document.body.innerHTML).catch((error)=>{
+            console.log('Fetch error')
             return false;
         }
         );
@@ -162,7 +162,7 @@ class Browser {
             await browser.close().then(()=>{
                 return userData;
             });
-            console.log('empty user data found woops returning 500 lol')
+            console.log('Empty userdata');
             return false;
         }
 
