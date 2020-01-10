@@ -45,6 +45,7 @@ class View extends React.Component {
         let imported = JSON.parse(localStorage.getItem('listicles'));
         let arrayNew = [];
         arrayNew.push(imported);
+        if (!arrayNew[0]) return false;
         for (let a = 0; arrayNew[0].length > a; a++) {
             for (let b = 0; arrayNew[0][a].data[0].length > b; b++) {
                 if (arrayNew[0][a].data[0][b] === null) {
@@ -58,6 +59,7 @@ class View extends React.Component {
     async updateCurrentDataSet (selection) {
         let newest = this.state.current;
         let currents = newest;
+        if (!currents[0])return;
         if (currents[0].length && currents[0] !== undefined){
             for (let a = 0; currents[0].length > a; a++) {
                 if (currents[0][a].eventName === selection){
@@ -91,6 +93,7 @@ class View extends React.Component {
     }
 
     async setCurrent() {
+        if (!this.state.list) return;
         let old = JSON.stringify(this.state.list);
         let newest = JSON.parse(old);
 
@@ -111,6 +114,13 @@ class View extends React.Component {
             current: currents
         });
     }   
+    setFilter = (filterTerm) => {
+        // set filter here
+        this.setState({
+            ...this.state,
+            filter: filterTerm
+        });
+    }
 
     showCard() {
         if (this.props.selectionName === null) {
@@ -186,13 +196,29 @@ class View extends React.Component {
                 <div className="startColumnTitle">exp</div>
             </div>
             <div className="startingSkillList">
-                {Object.keys(missile).map((data, index)=>
-                    <div key={data} className="skillWrapper">
-                        <div className="skillHolder">{data}</div>
-                        <div className="skillHolder">{missile[data].rank}</div>
-                        <div className="skillHolder">{missile[data].level}</div>
-                        <div className="skillHolder">{missile[data].xp}</div>
-                    </div>
+                {Object.keys(missile).map((data, index)=>{
+                    if (this.state.filter !== "" && this.state.filter === data){
+                        return (
+                            <div key={data} className="skillWrapper">
+                            <div className="skillHolder">{data}</div>
+                            <div className="skillHolder">{missile[data].rank}</div>
+                            <div className="skillHolder">{missile[data].level}</div>
+                            <div className="skillHolder">{missile[data].xp}</div>
+                        </div>
+                        );
+                    } else if (this.state.filter === "" && this.state.filter !== data) {
+                        return (
+                            <div key={data} className="skillWrapper">
+                            <div className="skillHolder">{data}</div>
+                            <div className="skillHolder">{missile[data].rank}</div>
+                            <div className="skillHolder">{missile[data].level}</div>
+                            <div className="skillHolder">{missile[data].xp}</div>
+                        </div>
+                        );
+                    }
+                    
+                }
+
                 )}
             </div>
         </div>
@@ -223,7 +249,8 @@ class View extends React.Component {
                     </div>
                     </div>
                 }
-            {loaded? <><div className="currentColumnTitle">
+            {loaded? <>
+                <div className="currentColumnTitle">
                 current stats
             </div>
             <div className="currentColumnSkill">
@@ -239,16 +266,33 @@ class View extends React.Component {
                 <div className="currentColumnTitle">exp</div>
             </div>
             <div className="currentSkillList">
-                {Object.keys(missile).map((data, index)=>
-                    <div key={data} className="skillWrapper">
-                        <div className="skillHolder">{data}</div>
-                        <div className="skillHolder">{missile[data].rank}</div>
-                        <div className="skillHolder">{missile[data].level}</div>
-                        <div className="skillHolder">{missile[data].xp}</div>
-                    </div>
+                {Object.keys(missile).map((data, index)=>{
+                    if (this.state.filter !== "" && this.state.filter === data){
+                        return (
+                            <div key={data} className="skillWrapper">
+                            <div className="skillHolder">{data}</div>
+                            <div className="skillHolder">{missile[data].rank}</div>
+                            <div className="skillHolder">{missile[data].level}</div>
+                            <div className="skillHolder">{missile[data].xp}</div>
+                        </div>
+                        );
+                    } else if (this.state.filter === "" && this.state.filter !== data) {
+                        return (
+                            <div key={data} className="skillWrapper">
+                            <div className="skillHolder">{data}</div>
+                            <div className="skillHolder">{missile[data].rank}</div>
+                            <div className="skillHolder">{missile[data].level}</div>
+                            <div className="skillHolder">{missile[data].xp}</div>
+                        </div>
+                        );
+                    }
+                    
+                }
                 )}
             </div>
-    </>: null}
+            </>
+            :
+            null}
         </div>
         );
     }
@@ -280,7 +324,8 @@ class View extends React.Component {
                     </div>
                     </div>
                 }
-            {loaded? <><div className="currentColumnTitle">
+            {loaded? <>
+                <div className="currentColumnTitle">
                  stats diff
             </div>
             <div className="currentColumnSkill">
@@ -296,13 +341,28 @@ class View extends React.Component {
                 <div className="currentColumnTitle">exp</div>
             </div>
             <div className="currentSkillList">
-           {Object.keys(curr).map((data, index)=>
+           {Object.keys(curr).map((data, index)=>{
+            if (this.state.filter !== "" && this.state.filter === data){
+                return (
                     <div key={data} className="skillWrapper">
-                        <div className="skillHolder">{data}</div>
-                        <div className="skillHolder">{curr[data].rank - old[data].rank}</div>
-                        <div className="skillHolder">{curr[data].level - old[data].level}</div>
-                        <div className="skillHolder">{curr[data].xp - old[data].xp}</div>
-                    </div>
+                    <div className="skillHolder">{data}</div>
+                    <div className="skillHolder">{curr[data].rank - old[data].rank}</div>
+                    <div className="skillHolder">{curr[data].level - old[data].level}</div>
+                    <div className="skillHolder">{curr[data].xp - old[data].xp}</div>
+                </div>
+                );
+            } else if (this.state.filter === "" && this.state.filter !== data) {
+                return (
+                    <div key={data} className="skillWrapper">
+                    <div className="skillHolder">{data}</div>
+                    <div className="skillHolder">{curr[data].rank - old[data].rank}</div>
+                    <div className="skillHolder">{curr[data].level - old[data].level}</div>
+                    <div className="skillHolder">{curr[data].xp - old[data].xp}</div>
+                </div>
+                );
+            }
+            
+        }
             )}
             </div>
             </>: null}
@@ -313,6 +373,7 @@ class View extends React.Component {
     render() {
       return (
         <section className="viewEventWrapper">
+        <FilterData list={this.state.list} updateFilter={this.setFilter}></FilterData>
             {this.showCard()}
         </section>
       );
