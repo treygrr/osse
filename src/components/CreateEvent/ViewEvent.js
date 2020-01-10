@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './ViewEvent.css';
 import img from './clicktosee.png'
 import getCurrent from '../CreateEvent/GetCurrent';
+import FilterData from '../CreateEvent/FilterData';
 
 class View extends React.Component {
     constructor(props) {
@@ -10,7 +11,8 @@ class View extends React.Component {
       this.state = {
           list: this.getData(),
           current: [],
-          selection: this.props.selectionName
+          selection: this.props.selectionName,
+          filter: ''
       }
 
     }
