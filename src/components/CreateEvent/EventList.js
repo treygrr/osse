@@ -53,7 +53,7 @@ class EventList extends React.Component {
                 </span>
             </a>
             {this.state.storageData.map((data, index) =>
-                <Link to="/view" replace>
+                <Link key={index} to="/view" replace>
                     <li key={index} className={data.eventName === this.state.selection? 'selected': ''}
                         onClick={()=>
                             this.setSelection(data.eventName)
