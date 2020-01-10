@@ -147,11 +147,13 @@ class Browser {
         const page = await browser.newPage();
 
         await page.goto(this.scrapeurl, { waitUntil: 'load', timeout: 5000 }).catch((error) => {
+            console.log(error);
             return false;
         });  
        
         const pageBody =  await page.evaluate(()=> document.body.innerHTML).catch((error)=>{
-            console.log('Fetch error')
+            console.log('Fetch error');
+            console.log(error);
             return false;
         }
         );
