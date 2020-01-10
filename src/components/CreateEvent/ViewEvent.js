@@ -216,6 +216,7 @@ class View extends React.Component {
                         </div>
                         );
                     }
+                    return null;
                     
                 }
 
@@ -286,6 +287,7 @@ class View extends React.Component {
                         </div>
                         );
                     }
+                    return null;
                     
                 }
                 )}
@@ -361,6 +363,7 @@ class View extends React.Component {
                 </div>
                 );
             }
+            return null;
             
         }
             )}

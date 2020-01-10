@@ -46,9 +46,9 @@ class EventList extends React.Component {
         return(
             <ul>
             <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet"/>
-            <a className="bmc-button" target="_blank" href="https://www.buymeacoffee.com/ylWKM4A">
+            <a className="bmc-button" href="https://www.buymeacoffee.com/ylWKM4A">
               <img src={'https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg'} alt={'Say thanks with a coffee'}/>
-                <span style={{marginLeft:'15px'},{fontSize:'28px !important'}}>
+                <span style={{ marginLeft:'15px', fontSize:'28px !important' }}>
                   Say thanks with a coffee
                 </span>
             </a>

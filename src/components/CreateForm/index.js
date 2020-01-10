@@ -168,6 +168,7 @@ class CreateForm extends React.Component {
       listItem.map((data) => {
         data.userData.loaded? trigger = true: trigger = false;
         data.userData.loading? trigger = false: trigger = true;
+        return null;
       });
 
       return trigger;
